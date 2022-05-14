@@ -12,4 +12,21 @@ export interface Tweet extends TweetBody {
     _rev: string
     _type: 'Tweet'
     blockTweet: boolean
-}   
+}
+
+export type CommentBody = {
+    comment: string
+    username: string
+    profileImg: string
+}
+export interface Comment extends CommentBody{
+    _id: string
+    _createdAt: string
+    _updatedAt: string
+    _rev: string
+    _type: 'Comment'
+    tweet: {
+        _ref: string
+        _type: "reference"
+    }
+}
