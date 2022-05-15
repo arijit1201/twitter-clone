@@ -42,7 +42,7 @@ function TweetComponent({ tweet }: Props) {
     })
 
     const res = await result.json()
-    refreshComments()
+    await refreshComments()
     toast('Comment Posted!', {
       icon: '✨',
       id: commentToast
