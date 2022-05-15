@@ -28,26 +28,24 @@ function TweetComponent({ tweet }: Props) {
   }, [])
 
   const postComment = async() => {
+    const commentToast = toast.loading('Posting Comment...')
     const commentInfo: CommentBody = {
       comment: inputComment,
       username: session?.user?.name || 'Unknown User',
       profileImg: session?.user?.image || 'user-default.png',
       tweetId: tweet._id
     }
-
+    
     const result = await fetch('/api/addComment', {
       body: JSON.stringify(commentInfo),
       method: 'POST'
     })
 
     const res = await result.json()
-
-    const newComments = await fetchComments(tweet._id);
-
-    setComments(comments)
     refreshComments()
     toast('Comment Posted!', {
-      icon: '✨'
+      icon: '✨',
+      id: commentToast
     })
     return res
   }

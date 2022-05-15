@@ -23,7 +23,7 @@ function TweetBox({setTweets}: Props) {
 
   const {data: session} = useSession()
   const [imageUrlBoxIsOpen, setImageUrlBoxIsOpen] = useState<boolean>(false)
-
+  
   const addImageToTweet = (e: React.MouseEvent<HTMLButtonElement, globalThis.MouseEvent>
     ) => {
         e.preventDefault();
@@ -34,6 +34,7 @@ function TweetBox({setTweets}: Props) {
   }
 
   const postTweet = async() => {
+    const tweetToast = toast.loading('Posting Tweet...')
     const tweetInfo: TweetBody = {
       text: input,
       username: session?.user?.name || 'Unknown User',
@@ -53,7 +54,8 @@ function TweetBox({setTweets}: Props) {
     setTweets(newTweets)
 
     toast('Tweet Posted!', {
-      icon: '🚀'
+      icon: '🚀',
+      id: tweetToast
     })
     return res
   }
